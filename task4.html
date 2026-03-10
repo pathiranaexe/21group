@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Toolkit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f2f5;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav {
+            background: linear-gradient(90deg, #800000, #a52a2a, #ffd700);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        nav .logo { font-size: 1.5rem; font-weight: bold; }
+        nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+        nav ul li { margin-left: 20px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: opacity 0.2s; }
+        nav ul li:hover { opacity: 0.8; }
+        nav ul li i { font-size: 1.1rem; }
+        .nav-active { border-bottom: 2px solid #ffd700; padding-bottom: 2px; }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-right: 1px solid #bdc3c7;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        button { cursor: pointer; background: #800000; color: #ffd700; border: 1px solid #ffd700; font-weight: bold; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); }
+        button:hover { transform: translateY(-2px); background: #a52a2a; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); }
+        
+        /* Unified Dark Mode Styles */
+        body.dark-mode { background-color: #121212; color: #e0e0e0; }
+        .dark-mode .sidebar { background-color: #1e1e1e; border-right-color: #333; color: #e0e0e0; }
+        .dark-mode .card { background-color: #1e1e1e; color: #e0e0e0; box-shadow: 0 4px 20px rgba(0,0,0,0.5); border-color: #333; }
+        .dark-mode input { background-color: #2d2d2d; color: #fff; border-color: #444; }
+        .dark-mode button { background: #800000; color: #ffd700; border: 1px solid #ffd700; }
+        .dark-mode h2, .dark-mode h3 { color: #fff; }
+        .dark-mode hr { border: 0; border-top: 1px solid #333; }
+
+        .sidebar ul li {
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
+        }
+        .sidebar ul li:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjh8HCAzjZbfXikaInHueqXzhxl9UzKtQhWw&s" alt="Logo" style="height: 50px; vertical-align: middle; margin-right: 10px; border-radius: 4px;">
+            Student Toolkit
+        </div>
+        <ul>
+            <li onclick="showWelcome()" class="nav-active" id="nav-home"><i class="fas fa-home"></i> Dashboard</li>
+            <li onclick="toggleDarkMode()" id="dark-mode-toggle"><i class="fas fa-moon"></i> Dark Mode</li>
+        </ul>
+    </nav>
+    <div class="main-container">
+        <div class="sidebar">
+            <h3>Menu</h3>
+            <p style="cursor: pointer; color: #800000; font-weight: bold;" onclick="showGPACalculator()">GPA Calculator</p>
+            <p style="cursor: pointer; color: #800000; font-weight: bold;" onclick="showPomodoroTimer()">Pomodoro Timer</p>
+            <hr>
+            <h3>Upcoming Events</h3>
+            <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
+                <li style="margin-bottom: 10px;">
+                    <strong>Math Exam</strong><br><small>Oct 25, 10:00 AM</small>
+                </li>
+                <li style="margin-bottom: 10px;">
+                    <strong>Project Due</strong><br><small>Oct 28, 11:59 PM</small>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="card">
+                <h2>Quick Search</h2>
+                <p>Find tools or resources instantly.</p>
+
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="tool-search" placeholder="Try 'GPA' or 'Timer'..." style="flex: 1;" onkeyup="handleSearch(event)">
+                    <button onclick="performSearch()"><i class="fas fa-search"></i> Search</button>
+                </div>
+                <div id="search-results" style="margin-top: 15px; font-size: 0.9rem; color: #7f8c8d;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const contentArea = document.querySelector('.content');
+        let timerInterval;
+
+        function updateActiveNav(id) {
+            document.querySelectorAll('nav ul li').forEach(li => li.classList.remove('nav-active'));
+            if(id) document.getElementById(id).classList.add('nav-active');
+        }
+
+        function showWelcome() {
+            updateActiveNav('nav-home');
+            contentArea.innerHTML = `
+                <div class="card">
+                    <h2>Quick Search</h2>
+                    <p>Find tools or resources instantly.</p>
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="https://via.placeholder.com/150" alt="Placeholder Image" style="border-radius: 8px; max-width: 100%;">
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="tool-search" placeholder="Try 'GPA' or 'Timer'..." style="flex: 1;" onkeyup="handleSearch(event)">
+                        <button onclick="performSearch()"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                    <div id="search-results" style="margin-top: 15px; font-size: 0.9rem; color: #7f8c8d;"></div>
+                </div>
+            `;
+        }
+
+        function handleSearch(event) {
+            if (event.key === 'Enter') performSearch();
+        }
+
+        function performSearch() {
+            const query = document.getElementById('tool-search').value.toLowerCase();
+            const resultsDiv = document.getElementById('search-results');
+            
+            if (query.includes('gpa') || query.includes('grade') || query.includes('calc')) {
+                resultsDiv.innerHTML = 'Result found: <a href="#" onclick="showGPACalculator()" style="color: #800000; font-weight: bold;">GPA Calculator</a>';
+            } else if (query.includes('timer') || query.includes('pomo') || query.includes('study')) {
+                resultsDiv.innerHTML = 'Result found: <a href="#" onclick="showPomodoroTimer()" style="color: #800000; font-weight: bold;">Pomodoro Timer</a>';
+            } else if (query === "") {
+                resultsDiv.innerHTML = "";
+            } else {
+                resultsDiv.innerHTML = "No tools found matching that description.";
+            }
+        }
+
+        function showGPACalculator() {
+            updateActiveNav(null);
+            contentArea.innerHTML = `
+                <div class="card">
+                    <h2>GPA Calculator</h2>
+                    <div id="gpa-rows">
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" placeholder="Course Name" style="flex: 2;">
+                            <input type="number" class="grade" placeholder="Grade (0-100)" style="flex: 1;">
+                            <input type="number" class="credits" placeholder="Credits" style="flex: 1;">
+                        </div>
+                    </div>
+                    <button onclick="addGPARow()">+ Add Course</button>
+                    <button onclick="calculateGPA()" style="background-color: #ffd700; color: #800000;">Calculate GPA</button>
+                    <h3 id="gpa-result" style="margin-top: 20px;"></h3>
+                </div>
+            `;
+        }
+
+        function showPomodoroTimer() {
+            updateActiveNav(null);
+            clearInterval(timerInterval);
+            contentArea.innerHTML = `
+                <div class="card" style="text-align: center;">
+                    <h2>Pomodoro Timer</h2>
+                    <div style="font-size: 3rem; margin: 20px 0;" id="timer-display">25:00</div>
+                    <div>
+                        <button onclick="startTimer(25)">Start Focus</button>
+                        <button onclick="startTimer(5)" style="background-color: #ffd700; color: #800000;">Short Break</button>
+                        <button onclick="resetTimer()" style="background-color: #a52a2a; color: white;">Reset</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function startTimer(minutes) {
+            clearInterval(timerInterval);
+            let time = minutes * 60;
+            const display = document.getElementById('timer-display');
+            
+            timerInterval = setInterval(() => {
+                const mins = Math.floor(time / 60);
+                const secs = time % 60;
+                display.innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                
+                if (time <= 0) {
+                    clearInterval(timerInterval);
+                    if (Notification.permission === "granted") {
+                        new Notification("Pomodoro Timer", { body: "Time's up!" });
+                    } else if (Notification.permission !== "denied") {
+                        Notification.requestPermission();
+                    }
+                    alert("Time's up!");
+                }
+                time--;
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            document.getElementById('timer-display').innerText = "25:00";
+        }
+
+        function addGPARow() {
+            const row = document.createElement('div');
+            row.style.display = 'flex';
+            row.style.gap = '10px';
+            row.style.marginBottom = '10px';
+            row.innerHTML = `
+                <input type="text" placeholder="Course Name" style="flex: 2;">
+                <input type="number" class="grade" placeholder="Grade (0-100)" style="flex: 1;">
+                <input type="number" class="credits" placeholder="Credits" style="flex: 1;">
+            `;
+            document.getElementById('gpa-rows').appendChild(row);
+        }
+
+        function calculateGPA() {
+            const grades = document.querySelectorAll('.grade');
+            const credits = document.querySelectorAll('.credits');
+            let totalPoints = 0;
+            let totalCredits = 0;
+
+            grades.forEach((g, i) => {
+                const grade = parseFloat(g.value);
+                const credit = parseFloat(credits[i].value);
+                if (!isNaN(grade) && !isNaN(credit)) {
+                    // Simple 4.0 scale conversion: (grade/100) * 4
+                    totalPoints += (grade / 25) * credit;
+                    totalCredits += credit;
+                }
+            });
+
+            const result = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : 0;
+            document.getElementById('gpa-result').innerText = `Overall GPA: ${result}`;
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const toggleBtn = document.getElementById('dark-mode-toggle');
+            if (document.body.classList.contains('dark-mode')) {
+                toggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+            } else {
+                toggleBtn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+            }
+        }
+    </script>
+</body>
+</html>
