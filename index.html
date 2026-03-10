@@ -9,155 +9,181 @@
         body {
             font-family: 'Plus Jakarta Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background-color: #fdfcfb;
+            background: #f0f2f5;
             transition: background-color 0.3s, color 0.3s;
+            color: #1a1a1a;
+            line-height: 1.6;
         }
         nav {
-            background: linear-gradient(135deg, rgba(96, 0, 0, 0.9), rgba(128, 0, 0, 0.9));
-            color: white;
+            background: #800000;
+            backdrop-filter: blur(15px);
             padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
-        nav .logo { font-size: 1.5rem; font-weight: bold; color: #ffd700; }
+        nav .logo { font-size: 1.5rem; font-weight: bold; color: #ffffff; }
         nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
-        nav ul li { margin-left: 20px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: opacity 0.2s; }
-        nav ul li:hover { opacity: 0.8; }
+        nav ul li { margin-left: 20px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; color: #ffffff; }
+        nav ul li:hover { transform: scale(1.1); text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
         nav ul li i { font-size: 1.1rem; }
         .nav-active { border-bottom: 2px solid #ffd700; padding-bottom: 2px; }
 
         .main-container {
             display: flex;
-            flex: 1;
-            overflow: hidden;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 20px;
+            padding: 0 20px;
         }
         .sidebar {
-            width: 250px;
-            background-color: #fff;
-            padding: 20px;
-            border-right: 1px solid #eee;
+            width: 280px;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            height: fit-content;
         }
         .content {
             flex: 1;
-            padding: 40px;
-            overflow-y: auto;
         }
         .card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
+            background: #ffffff;
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
         }
         input, button {
             padding: 10px;
             margin: 5px 0;
-            border-radius: 8px;
-            border: 1px solid #ccc;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #333;
             outline: none;
             transition: 0.3s;
             font-family: inherit;
         }
         input:hover, select:hover {
-            border-color: #ffd700;
-            box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
-            transform: translateY(-1px);
+            border-color: #b8860b;
+            box-shadow: 0 0 15px rgba(184, 134, 11, 0.4);
         }
-        button { cursor: pointer; background: rgba(128, 0, 0, 0.85); color: #ffd700; border: none; font-weight: 600; padding: 12px 20px; }
-        button:hover { transform: translateY(-1px); background: rgba(165, 42, 42, 0.9); box-shadow: 0 4px 12px rgba(128, 0, 0, 0.2); }
+        button { cursor: pointer; background: #800000; color: #ffffff; border: none; font-weight: 600; padding: 12px 24px; border-radius: 12px; transition: 0.3s; }
+        button:hover { background: #a00000; transform: translateY(-1px); }
         
         /* Unified Dark Mode Styles */
-        body.dark-mode { background-color: #121212; color: #e0e0e0; }
-        .dark-mode .sidebar { background-color: #1e1e1e; border-right-color: #333; color: #e0e0e0; }
-        .dark-mode .card { background-color: rgba(30, 30, 30, 0.7); color: #e0e0e0; box-shadow: 0 4px 20px rgba(0,0,0,0.5); border-color: #333; }
-        .dark-mode input { background-color: #2d2d2d; color: #fff; border-color: #444; }
-        .dark-mode button { background: rgba(128, 0, 0, 0.85); color: #ffd700; border: 1px solid #ffd700; }
-        .dark-mode h2, .dark-mode h3 { color: #fff; }
+        .dark-mode { background: #1a1a1a; color: #f8f9fa; }
+        .dark-mode nav { background: #000000; }
+        .dark-mode .sidebar { background: rgba(255, 255, 255, 0.05); color: #ffd700; }
+        .dark-mode .sidebar p { color: #ffd700 !important; }
+        .dark-mode .card { background: #2d2d2d; color: #f8f9fa; border-color: rgba(255, 255, 255, 0.1); }
+        .dark-mode input, .dark-mode select { background-color: #3d3d3d; color: #fff; border-color: #555; }
+        .dark-mode h2, .dark-mode h3, .dark-mode p, .dark-mode strong { color: #ffd700 !important; }
         .dark-mode hr { border: 0; border-top: 1px solid #333; }
 
         .sidebar p, .sidebar ul li {
-            transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease;
+            transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease; font-family: inherit;
         }
         .sidebar p:hover, .sidebar ul li:hover {
-            transform: translateX(5px);
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+            transform: translateX(-5px);
+            color: #800000;
+            font-weight: bold;
         }
 
         /* Thought Tracker Specific Styles */
         .thought-tracker-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
+            background: #ffffff;
             padding: 2.5rem;
-            border-radius: 24px;
-            border: 1px solid #eee;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
-        .thought-tracker-container h2 { color: rgba(128, 0, 0, 0.9); text-align: center; font-weight: 800; }
+        .thought-tracker-container h2 { color: #800000; text-align: center; font-weight: 800; }
         .tt-input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1rem; }
         .tt-select, .tt-input { padding: 12px; border-radius: 12px; background: #fff; color: inherit; border: 1px solid #ccc; }
-        .tt-select option { background-color: #fff; color: rgba(128, 0, 0, 0.9); }
-        .tt-input::placeholder { color: rgba(128, 0, 0, 0.5); }
+        .tt-select option { background-color: #fff; color: #333; }
+        .tt-input::placeholder { color: #800000; opacity: 0.5; }
         .tt-list { list-style: none; padding: 0; margin-top: 20px; }
         .tt-li { 
-            background: rgba(128, 0, 0, 0.05); 
+            background: #f9f9f9; 
             margin-bottom: 10px; 
             padding: 12px; 
             border-radius: 12px; 
             display: flex; 
             justify-content: space-between;
-            border-left: 4px solid rgba(128, 0, 0, 0.8);
+            border-left: 4px solid #800000;
             color: inherit;
         }
         .tt-li:hover {
-            border-left-color: #ffd700;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            background: rgba(128, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
         }
-        .tt-name { color: rgba(128, 0, 0, 0.9); font-weight: bold; margin-right: 8px; }
-        .tt-time { font-size: 10px; color: #7f8c8d; margin-left: 8px; }
+        .tt-name { color: #800000; font-weight: bold; margin-right: 8px; }
+        .tt-time { font-size: 10px; color: #800000; opacity: 0.6; margin-left: 8px; }
         .tt-menu { position: relative; }
         .tt-menu-content { 
             display: none; 
             position: absolute; 
             right: 0; 
-            background: #fff; 
-            border: 1px solid rgba(128, 0, 0, 0.8); 
+            background: #1a237e; 
+            border: 1px solid #e0e0e0; 
             z-index: 10; 
             border-radius: 8px;
         }
         .tt-menu-content button { 
-            display: block; width: 100%; padding: 5px 10px; font-size: 12px; background: none; border: none; color: rgba(128, 0, 0, 0.9); text-align: left;
+            display: block; width: 100%; padding: 5px 10px; font-size: 12px; background: none; border: none; color: #333; text-align: left;
         }
-        .tt-btn-clear { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(114, 11, 11, 0.579); font-size: 11px; align-self: flex-end; padding: 5px 10px; }
-        .tt-btn-clear:hover { background: rgba(165, 42, 42, 0.9); color: white; }
+        .tt-btn-clear { background: #f44336; color: white; border: none; font-size: 11px; align-self: flex-end; padding: 5px 10px; cursor: pointer; }
+        .tt-btn-clear:hover { background: #d32f2f; }
 
         .card:hover {
-            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.15);
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
         }
 
-        .dark-mode .thought-tracker-container { background: rgba(30, 30, 30, 0.7); border-color: #333; }
+        .dark-mode .thought-tracker-container { background: #2d2d2d; border-color: #ffd700; }
+        .dark-mode .thought-tracker-container h2 { color: #ffd700; }
         .dark-mode .tt-select, .dark-mode .tt-input { background: #2d2d2d; color: #fff; border-color: #444; }
         .dark-mode .tt-select option { background-color: #1e1e1e; color: #fff; }
-        .dark-mode .tt-name { color: #ffd700; }
-        .dark-mode .tt-menu-content { background: #1e1e1e; border-color: #ffd700; }
-        .dark-mode .tt-menu-content button { color: #ffd700; }
-        .dark-mode .tt-li { background: rgba(255, 255, 255, 0.05); border-left-color: #ffd700; }
-        .dark-mode .tt-time { color: #aaa; }
+        .dark-mode .tt-name, .dark-mode .tt-time { color: #ffd700 !important; }
+        .dark-mode .tt-menu-content { background: #1e1e1e; border-color: #333; }
+        .dark-mode .tt-menu-content button { color: #fff; }
+        .dark-mode .tt-li { background: #3d3d3d; border-left-color: #ffd700; }
+        .dark-mode .tt-input::placeholder { color: #ffd700; opacity: 0.5; }
 
         footer {
-            background: #fdfcfb;
+            background: transparent;
             padding: 10px 0;
-            border-top: 1px solid #eee;
-            transition: background-color 0.3s, border-color 0.3s;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
         }
-        .dark-mode footer { background: #121212; border-top-color: #333; }
+        .dark-mode footer { color: #ffd700; border-top-color: #444; }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: auto;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .content {
+                padding: 20px;
+            }
+            .tt-input-group {
+                flex-direction: column;
+            }
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -173,9 +199,9 @@
     <div class="main-container">
         <div class="sidebar">
             <h3>Menu</h3>
-            <p style="cursor: pointer; color: rgba(114, 11, 11, 0.579); font-weight: bold;" onclick="showGPACalculator()">GPA Calculator</p>
-            <p style="cursor: pointer; color: rgba(114, 11, 11, 0.579); font-weight: bold;" onclick="showPomodoroTimer()">Pomodoro Timer</p>
-            <p style="cursor: pointer; color: rgba(114, 11, 11, 0.579); font-weight: bold;" onclick="showThoughtTracker()">Thought Tracker</p>
+            <p style="cursor: pointer; color: #800000; font-weight: bold;" onclick="showGPACalculator()">GPA Calculator</p>
+            <p style="cursor: pointer; color: #800000; font-weight: bold;" onclick="showPomodoroTimer()">Pomodoro Timer</p>
+            <p style="cursor: pointer; color: #800000; font-weight: bold;" onclick="showThoughtTracker()">Thought Tracker</p>
             <hr>
             <h3>Upcoming Events</h3>
             <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
@@ -189,11 +215,11 @@
         </div>
         <div class="content">
             <div class="card">
-                <h2>Quick Search</h2>
-                <p>Find tools or resources instantly.</p>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="tool-search" placeholder="Try 'GPA' or 'Timer'..." style="flex: 1;" onkeyup="handleSearch(event)">
-                    <button onclick="performSearch()"><i class="fas fa-search"></i> Search</button>
+                <h2 style="color: #800000;">System Search</h2>
+                <p style="opacity: 0.7; color: #333;">Initialize tool protocols...</p>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <input type="text" id="tool-search" placeholder="Query system..." style="flex: 1;" onkeyup="handleSearch(event)">
+                    <button onclick="performSearch()"><i class="fas fa-bolt"></i> Execute</button>
                 </div>
                 <div id="search-results" style="margin-top: 15px; font-size: 0.9rem; color: #7f8c8d;"></div>
             </div>
@@ -235,11 +261,11 @@
             const resultsDiv = document.getElementById('search-results');
             
             if (query.includes('gpa') || query.includes('grade') || query.includes('calc')) {
-                resultsDiv.innerHTML = 'Result found: <a href="#" onclick="showGPACalculator()" style="color: rgba(128, 0, 0, 0.9); font-weight: bold;">GPA Calculator</a>';
+                resultsDiv.innerHTML = 'Protocol found: <a href="#" onclick="showGPACalculator()" style="color: #800000; font-weight: bold;">GPA Calculator</a>';
             } else if (query.includes('timer') || query.includes('pomo') || query.includes('study')) {
-                resultsDiv.innerHTML = 'Result found: <a href="#" onclick="showPomodoroTimer()" style="color: rgba(128, 0, 0, 0.9); font-weight: bold;">Pomodoro Timer</a>';
+                resultsDiv.innerHTML = 'Protocol found: <a href="#" onclick="showPomodoroTimer()" style="color: #800000; font-weight: bold;">Pomodoro Timer</a>';
             } else if (query.includes('thought') || query.includes('track') || query.includes('team')) {
-                resultsDiv.innerHTML = 'Result found: <a href="#" onclick="showThoughtTracker()" style="color: rgba(128, 0, 0, 0.9); font-weight: bold;">Thought Tracker</a>';
+                resultsDiv.innerHTML = 'Protocol found: <a href="#" onclick="showThoughtTracker()" style="color: #800000; font-weight: bold;">Thought Tracker</a>';
             } else if (query === "") {
                 resultsDiv.innerHTML = "";
             } else {
@@ -251,7 +277,7 @@
             updateActiveNav(null);
             contentArea.innerHTML = `
                 <div class="card">
-                    <h2>GPA Calculator</h2>
+                    <h2 style="color: #800000;">GPA Calculator</h2>
                     <div id="gpa-rows">
                         <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                             <input type="text" placeholder="Course Name" style="flex: 2;">
@@ -260,7 +286,7 @@
                         </div>
                     </div>
                     <button onclick="addGPARow()">+ Add Course</button>
-                    <button onclick="calculateGPA()" style="background-color: #ffd700; color: rgba(128, 0, 0, 0.9);">Calculate GPA</button>
+                    <button onclick="calculateGPA()" style="background: #28a745; color: #fff;">Calculate GPA</button>
                     <h3 id="gpa-result" style="margin-top: 20px;"></h3>
                 </div>
             `;
@@ -270,13 +296,13 @@
             updateActiveNav(null);
             clearInterval(timerInterval);
             contentArea.innerHTML = `
-                <div class="card" style="text-align: center;">
-                    <h2>Pomodoro Timer</h2>
-                    <div style="font-size: 3rem; margin: 20px 0;" id="timer-display">25:00</div>
+                <div class="card" style="text-align: center; color: #800000;">
+                    <h2 style="color: #800000;">Pomodoro Timer</h2>
+                    <div style="font-size: 5rem; margin: 20px 0; font-family: monospace; color: #800000; font-weight: bold;" id="timer-display">25:00</div>
                     <div>
-                        <button onclick="startTimer(25)">Start Focus</button>
-                        <button onclick="startTimer(5)" style="background-color: #ffd700; color: rgba(128, 0, 0, 0.9);">Short Break</button>
-                        <button onclick="resetTimer()" style="background-color: rgba(165, 42, 42, 0.9); color: white;">Reset</button>
+                        <button onclick="startTimer(25)" style="background: #00c853;">Start Focus</button>
+                        <button onclick="startTimer(5)" style="background: #ff9800; color: white;">Short Break</button>
+                        <button onclick="resetTimer()" style="background-color: #f44336; color: white;">Reset</button>
                     </div>
                 </div>
             `;
@@ -286,10 +312,10 @@
             updateActiveNav(null);
             contentArea.innerHTML = `
                 <div class="card thought-tracker-container">
-                    <h2 style="opacity: 0.8; color: rgba(128, 0, 0, 0.9);">Teammate <span style="color: #ffd700;">Thought Tracker</span></h2>
+                    <h2 style="color: #800000;">Neural <span style="color: #b8860b;">Thought Link</span></h2>
                     <div class="tt-input-group">
-                        <select id="teammate" class="tt-select">
-                            <option value="" disabled selected style="color: rgba(128, 0, 0, 0.9);">Teammate: </option>
+                        <select id="teammate" class="tt-select" style="color: #800000;">
+                            <option value="" disabled selected>Teammate: </option>
                             <option value="Dasith">Dasith</option>
                             <option value="Shamal">Shamal</option>
                             <option value="Sakith">Sakith</option>
@@ -299,11 +325,11 @@
                             <option value="Pathirana">Pathirana</option>
                             <option value="Mariyam">Mariyam</option>
                         </select>
-                        <input type="text" id="thought" class="tt-input" placeholder="What are you thinking?" onkeypress="if(event.key === 'Enter') addThought()">
-                        <button onclick="addThought()" style="background: rgba(128, 0, 0, 0.85); color: #ffd700; border: 1px solid #ffd700;">Add Thought</button>
+                        <input type="text" id="thought" class="tt-input" style="color: #800000;" placeholder="What are you thinking?" onkeypress="if(event.key === 'Enter') addThought()">
+                        <button onclick="addThought()">Transmit</button>
                         <button onclick="clearAll()" class="tt-btn-clear">Clear All</button>
                     </div>
-                    <ul id="thought-list" class="tt-list"><li style="text-align: center; opacity: 0.5;">No thoughts shared yet...</li></ul>
+                    <ul id="thought-list" class="tt-list"><li style="text-align: center; opacity: 0.5; color: #800000;">No neural links established...</li></ul>
                 </div>
             `;
         }
