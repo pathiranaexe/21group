@@ -244,6 +244,11 @@
             const thought = document.getElementById('thought').value;
             const list = document.getElementById('thought-list');
 
+            if (!name) {
+                alert("Please select a teammate!");
+                return;
+            }
+
             // Remove placeholder if it exists
             if (list.innerText.includes("No thoughts shared yet")) {
                 list.innerHTML = "";
