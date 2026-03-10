@@ -7,27 +7,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: 'Plus Jakarta Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Futura', 'Trebuchet MS', Arial, sans-serif;
             margin: 0;
-            background: #f0f2f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             transition: background-color 0.3s, color 0.3s;
             color: #1a1a1a;
             line-height: 1.6;
+            min-height: 100vh;
         }
         nav {
-            background: #800000;
-            backdrop-filter: blur(15px);
-            padding: 1rem;
+            background: rgba(128, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        nav .logo { font-size: 1.5rem; font-weight: bold; color: #ffffff; }
+        nav .logo { font-size: 1.5rem; font-weight: bold; color: #ffd700; }
         nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
-        nav ul li { margin-left: 20px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; color: #ffffff; }
-        nav ul li:hover { transform: scale(1.1); text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        nav ul li { margin-left: 20px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; color: #ffd700; font-weight: 500; }
+        nav ul li:hover { transform: scale(1.1); text-shadow: 0 0 10px #ffd700; }
         nav ul li i { font-size: 1.1rem; }
         .nav-active { border-bottom: 2px solid #ffd700; padding-bottom: 2px; }
 
@@ -43,22 +47,26 @@
             background: #ffffff;
             padding: 25px;
             border-radius: 16px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            height: fit-content;
+            border: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            height: auto;
+            align-self: flex-start;
+            position: sticky;
+            top: 100px;
         }
         .content {
             flex: 1;
         }
         .card {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.7);
             padding: 30px;
             border-radius: 16px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             margin-bottom: 20px;
-            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
         }
+        .card:hover { backdrop-filter: blur(5px); }
         input, button {
             padding: 10px;
             margin: 5px 0;
@@ -71,38 +79,32 @@
             font-family: inherit;
         }
         input:hover, select:hover {
-            border-color: #b8860b;
-            box-shadow: 0 0 15px rgba(184, 134, 11, 0.4);
+            border-color: #800000;
         }
-        button { cursor: pointer; background: #800000; color: #ffffff; border: none; font-weight: 600; padding: 12px 24px; border-radius: 12px; transition: 0.3s; }
-        button:hover { background: #a00000; transform: translateY(-1px); }
+        button { cursor: pointer; background: #800000; color: #ffd700; border: none; font-weight: 600; padding: 12px 24px; border-radius: 12px; transition: 0.3s; }
+        button:hover { background: #a00000; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(128,0,0,0.3); }
         
         /* Unified Dark Mode Styles */
-        .dark-mode { background: #1a1a1a; color: #f8f9fa; }
+        .dark-mode { background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%); color: #f8f9fa; }
         .dark-mode nav { background: #000000; }
-        .dark-mode .sidebar { background: rgba(255, 255, 255, 0.05); color: #ffd700; }
+        .dark-mode .sidebar { background: rgba(255, 255, 255, 0.05); color: #ffd700; border-color: transparent; }
         .dark-mode .sidebar p { color: #ffd700 !important; }
-        .dark-mode .card { background: #2d2d2d; color: #f8f9fa; border-color: rgba(255, 255, 255, 0.1); }
+        .dark-mode .card { background: rgba(45, 45, 45, 0.7); color: #f8f9fa; border-color: rgba(255, 255, 255, 0.1); }
         .dark-mode input, .dark-mode select { background-color: #3d3d3d; color: #fff; border-color: #555; }
-        .dark-mode h2, .dark-mode h3, .dark-mode p, .dark-mode strong { color: #ffd700 !important; }
+        .dark-mode h2, .dark-mode h3, .dark-mode p, .dark-mode strong { color: #ffffff !important; }
         .dark-mode hr { border: 0; border-top: 1px solid #333; }
 
         .sidebar p, .sidebar ul li {
-            transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease; font-family: inherit;
+            transition: transform 0.3s ease, text-shadow 0.3s ease, color 0.3s ease;
         }
         .sidebar p:hover, .sidebar ul li:hover {
-            transform: translateX(-5px);
+            transform: translateX(5px);
             color: #800000;
-            font-weight: bold;
         }
 
         /* Thought Tracker Specific Styles */
         .thought-tracker-container {
-            background: #ffffff;
-            padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-top: none;
         }
         .thought-tracker-container h2 { color: #800000; text-align: center; font-weight: 800; }
         .tt-input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1rem; }
@@ -131,28 +133,28 @@
             display: none; 
             position: absolute; 
             right: 0; 
-            background: #1a237e; 
+            background: #800000; 
             border: 1px solid #e0e0e0; 
             z-index: 10; 
             border-radius: 8px;
         }
-        .tt-menu-content button { 
-            display: block; width: 100%; padding: 5px 10px; font-size: 12px; background: none; border: none; color: #333; text-align: left;
-        }
+        .tt-menu-content button { display: block; width: 100%; padding: 5px 10px; font-size: 12px; background: none; border: none; color: #ffd700; text-align: left; }
+        .tt-menu-content button:hover { background: #a00000; }
         .tt-btn-clear { background: #f44336; color: white; border: none; font-size: 11px; align-self: flex-end; padding: 5px 10px; cursor: pointer; }
         .tt-btn-clear:hover { background: #d32f2f; }
 
         .card:hover {
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
         .dark-mode .thought-tracker-container { background: #2d2d2d; border-color: #ffd700; }
-        .dark-mode .thought-tracker-container h2 { color: #ffd700; }
+        .dark-mode .thought-tracker-container h2 { color: #ffffff; }
         .dark-mode .tt-select, .dark-mode .tt-input { background: #2d2d2d; color: #fff; border-color: #444; }
         .dark-mode .tt-select option { background-color: #1e1e1e; color: #fff; }
         .dark-mode .tt-name, .dark-mode .tt-time { color: #ffd700 !important; }
-        .dark-mode .tt-menu-content { background: #1e1e1e; border-color: #333; }
-        .dark-mode .tt-menu-content button { color: #fff; }
+        .dark-mode .tt-menu-content { background: #000000; border-color: #ffd700; }
+        .dark-mode .tt-menu-content button { color: #ffd700; }
         .dark-mode .tt-li { background: #3d3d3d; border-left-color: #ffd700; }
         .dark-mode .tt-input::placeholder { color: #ffd700; opacity: 0.5; }
 
@@ -160,7 +162,7 @@
             background: transparent;
             padding: 10px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #888;
+            color: #000000;
         }
         .dark-mode footer { color: #ffd700; border-top-color: #444; }
 
@@ -198,12 +200,12 @@
     </nav>
     <div class="main-container">
         <div class="sidebar">
-            <h3>Menu</h3>
-            <p style="cursor: pointer; color: #800000; font-weight: bold;" onclick="showGPACalculator()">GPA Calculator</p>
-            <p style="cursor: pointer; color: #800000; font-weight: bold;" onclick="showPomodoroTimer()">Pomodoro Timer</p>
-            <p style="cursor: pointer; color: #800000; font-weight: bold;" onclick="showThoughtTracker()">Thought Tracker</p>
+            <h3 style="color: #ffd700; background: #800000; padding: 5px; text-align: center; font-weight: bold;">Menu</h3>
+            <p style="cursor: pointer; color: #800000; font-weight: bold;" onclick="scrollToTool('gpa-tool')">GPA Calculator</p>
+            <p style="cursor: pointer; color: #800000; font-weight: bold;" onclick="scrollToTool('pomodoro-tool')">Pomodoro Timer</p>
+            <p style="cursor: pointer; color: #800000; font-weight: bold;" onclick="scrollToTool('thought-tool')">Thought Tracker</p>
             <hr>
-            <h3>Upcoming Events</h3>
+            <h3 style="color: #ffd700; background: #800000; padding: 5px; text-align: center; font-weight: bold;">Upcoming Events</h3>
             <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
                 <li style="margin-bottom: 10px;">
                     <strong>Math Exam</strong><br><small>Oct 25, 10:00 AM</small>
@@ -215,14 +217,59 @@
         </div>
         <div class="content">
             <div class="card">
-                <h2 style="color: #800000;">System Search</h2>
-                <p style="opacity: 0.7; color: #333;">Initialize tool protocols...</p>
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <input type="text" id="tool-search" placeholder="Query system..." style="flex: 1;" onkeyup="handleSearch(event)">
-                    <button onclick="performSearch()"><i class="fas fa-bolt"></i> Execute</button>
-                </div>
+                <h2 style="color: #800000; font-weight: bold; text-align: center;">Welcome to the UCSC Student Portal</h2>
+                <p style="text-align: center; opacity: 0.8; color: #333; font-size: 1.1rem;">Your central hub for academic tools and productivity. Select a tool from the menu to get started.</p>
+                <div style="text-align: center; margin-top: 20px; color: #800000;"><i class="fas fa-graduation-cap fa-3x"></i></div>
                 <div id="search-results" style="margin-top: 15px; font-size: 0.9rem; color: #7f8c8d;"></div>
             </div>
+
+            <div id="gpa-tool" class="card">
+                <h2 style="color: #800000;">GPA Calculator</h2>
+                <div id="gpa-rows">
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" placeholder="Course Name" style="flex: 2;">
+                        <input type="number" class="grade" placeholder="Grade (0-100)" style="flex: 1;">
+                        <input type="number" class="credits" placeholder="Credits" style="flex: 1;">
+                    </div>
+                </div>
+                <button onclick="addGPARow()">+ Add Course</button>
+                <button onclick="calculateGPA()" style="background: #28a745; color: #fff;">Calculate GPA</button>
+                <h3 id="gpa-result" style="margin-top: 20px;"></h3>
+            </div>
+
+            <div id="pomodoro-tool" class="card" style="text-align: center; color: #800000;">
+                <h2 style="color: #800000;">Pomodoro Timer</h2>
+                <div style="font-size: 5rem; margin: 20px 0; font-family: monospace; color: #800000; font-weight: bold;" id="timer-display">25:00</div>
+                <div>
+                    <button onclick="startTimer(25)" style="background: #00c853;">Start Focus</button>
+                    <button onclick="startTimer(5)" style="background: #ff9800; color: white;">Short Break</button>
+                    <button onclick="resetTimer()" style="background-color: #f44336; color: white;">Reset</button>
+                </div>
+            </div>
+
+            <div id="thought-tool" class="card thought-tracker-container">
+                <h2 style="color: #800000;">Neural <span style="color: #b8860b;">Thought Link</span></h2>
+                <div class="tt-input-group">
+                    <select id="teammate" class="tt-select" style="color: #800000;">
+                        <option value="" disabled selected>Teammate: </option>
+                        <option value="Dasith">Dasith</option>
+                        <option value="Shamal">Shamal</option>
+                        <option value="Sakith">Sakith</option>
+                        <option value="Vismi">Vismi</option>
+                        <option value="Uvindu">Uvindu</option>
+                        <option value="Supun">Supun</option>
+                        <option value="Pathirana">Pathirana</option>
+                        <option value="Mariyam">Mariyam</option>
+                    </select>
+                    <input type="text" id="thought" class="tt-input" style="color: #800000;" placeholder="What are you thinking?" onkeypress="if(event.key === 'Enter') addThought()">
+                    <button onclick="addThought()">Transmit</button>
+                    <button onclick="clearAll()" class="tt-btn-clear">Clear All</button>
+                </div>
+                <ul id="thought-list" class="tt-list">
+                    <li style="text-align: center; opacity: 0.5; color: #800000;">No neural links established...</li>
+                </ul>
+            </div>
+
         </div>
     </div>
     <footer style="text-align:center; font-size: 10px; opacity: 0.6;">GROUP21 &copy; Orientation 2026</footer>
@@ -231,25 +278,13 @@
         const contentArea = document.querySelector('.content');
         let timerInterval;
 
+        function scrollToTool(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
         function updateActiveNav(id) {
             document.querySelectorAll('nav ul li').forEach(li => li.classList.remove('nav-active'));
             if(id) document.getElementById(id).classList.add('nav-active');
-        }
-
-        function showWelcome() {
-            updateActiveNav('nav-home');
-            contentArea.innerHTML = `
-                <header style="text-align:center; font-size: 10px; opacity: 0.6; margin-bottom: 10px;">UNIVERSITY OF COLOMBO SCHOOL OF COMPUTING</header>
-                <div class="card">
-                    <h2>Quick Search</h2>
-                    <p>Find tools or resources instantly.</p>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="text" id="tool-search" placeholder="Try 'GPA' or 'Timer'..." style="flex: 1;" onkeyup="handleSearch(event)">
-                        <button onclick="performSearch()"><i class="fas fa-search"></i> Search</button>
-                    </div>
-                    <div id="search-results" style="margin-top: 15px; font-size: 0.9rem; color: #7f8c8d;"></div>
-                </div>
-            `;
         }
 
         function handleSearch(event) {
@@ -261,79 +296,17 @@
             const resultsDiv = document.getElementById('search-results');
             
             if (query.includes('gpa') || query.includes('grade') || query.includes('calc')) {
-                resultsDiv.innerHTML = 'Protocol found: <a href="#" onclick="showGPACalculator()" style="color: #800000; font-weight: bold;">GPA Calculator</a>';
+                resultsDiv.innerHTML = 'Protocol found: <a href="#gpa-tool" onclick="scrollToTool(\'gpa-tool\')" style="color: #800000; font-weight: bold;">GPA Calculator</a>';
             } else if (query.includes('timer') || query.includes('pomo') || query.includes('study')) {
-                resultsDiv.innerHTML = 'Protocol found: <a href="#" onclick="showPomodoroTimer()" style="color: #800000; font-weight: bold;">Pomodoro Timer</a>';
+                resultsDiv.innerHTML = 'Protocol found: <a href="#pomodoro-tool" onclick="scrollToTool(\'pomodoro-tool\')" style="color: #800000; font-weight: bold;">Pomodoro Timer</a>';
             } else if (query.includes('thought') || query.includes('track') || query.includes('team')) {
-                resultsDiv.innerHTML = 'Protocol found: <a href="#" onclick="showThoughtTracker()" style="color: #800000; font-weight: bold;">Thought Tracker</a>';
+                resultsDiv.innerHTML = 'Protocol found: <a href="#thought-tool" onclick="scrollToTool(\'thought-tool\')" style="color: #800000; font-weight: bold;">Thought Tracker</a>';
             } else if (query === "") {
                 resultsDiv.innerHTML = "";
             } else {
                 resultsDiv.innerHTML = "No tools found matching that description.";
             }
         }
-
-        function showGPACalculator() {
-            updateActiveNav(null);
-            contentArea.innerHTML = `
-                <div class="card">
-                    <h2 style="color: #800000;">GPA Calculator</h2>
-                    <div id="gpa-rows">
-                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                            <input type="text" placeholder="Course Name" style="flex: 2;">
-                            <input type="number" class="grade" placeholder="Grade (0-100)" style="flex: 1;">
-                            <input type="number" class="credits" placeholder="Credits" style="flex: 1;">
-                        </div>
-                    </div>
-                    <button onclick="addGPARow()">+ Add Course</button>
-                    <button onclick="calculateGPA()" style="background: #28a745; color: #fff;">Calculate GPA</button>
-                    <h3 id="gpa-result" style="margin-top: 20px;"></h3>
-                </div>
-            `;
-        }
-
-        function showPomodoroTimer() {
-            updateActiveNav(null);
-            clearInterval(timerInterval);
-            contentArea.innerHTML = `
-                <div class="card" style="text-align: center; color: #800000;">
-                    <h2 style="color: #800000;">Pomodoro Timer</h2>
-                    <div style="font-size: 5rem; margin: 20px 0; font-family: monospace; color: #800000; font-weight: bold;" id="timer-display">25:00</div>
-                    <div>
-                        <button onclick="startTimer(25)" style="background: #00c853;">Start Focus</button>
-                        <button onclick="startTimer(5)" style="background: #ff9800; color: white;">Short Break</button>
-                        <button onclick="resetTimer()" style="background-color: #f44336; color: white;">Reset</button>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showThoughtTracker() {
-            updateActiveNav(null);
-            contentArea.innerHTML = `
-                <div class="card thought-tracker-container">
-                    <h2 style="color: #800000;">Neural <span style="color: #b8860b;">Thought Link</span></h2>
-                    <div class="tt-input-group">
-                        <select id="teammate" class="tt-select" style="color: #800000;">
-                            <option value="" disabled selected>Teammate: </option>
-                            <option value="Dasith">Dasith</option>
-                            <option value="Shamal">Shamal</option>
-                            <option value="Sakith">Sakith</option>
-                            <option value="Vismi">Vismi</option>
-                            <option value="Uvindu">Uvindu</option>
-                            <option value="Supun">Supun</option>
-                            <option value="Pathirana">Pathirana</option>
-                            <option value="Mariyam">Mariyam</option>
-                        </select>
-                        <input type="text" id="thought" class="tt-input" style="color: #800000;" placeholder="What are you thinking?" onkeypress="if(event.key === 'Enter') addThought()">
-                        <button onclick="addThought()">Transmit</button>
-                        <button onclick="clearAll()" class="tt-btn-clear">Clear All</button>
-                    </div>
-                    <ul id="thought-list" class="tt-list"><li style="text-align: center; opacity: 0.5; color: #800000;">No neural links established...</li></ul>
-                </div>
-            `;
-        }
-
         function addThought() {
             const name = document.getElementById('teammate').value;
             const thought = document.getElementById('thought').value;
